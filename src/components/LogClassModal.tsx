@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { StudentGroup, ClassLog } from '../types';
-import { X, Calendar, Clock, BookOpen, User, CheckCircle } from 'lucide-react';
+import { X, CheckCircle } from 'lucide-react';
 
 interface Props {
   isOpen: boolean;

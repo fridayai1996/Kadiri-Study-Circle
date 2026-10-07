@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { StudentGroup } from '../types';
-import { X, UserPlus, Sparkles } from 'lucide-react';
+import { X, UserPlus } from 'lucide-react';
 
 interface Props {
   isOpen: boolean;

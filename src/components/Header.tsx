@@ -1,7 +1,7 @@
 import React from 'react';
 import { useApp } from '../context/AppContext';
-import { Role } from '../types';
-import { ShieldCheck, GraduationCap, UserCheck, RefreshCw, BookOpen, LogOut } from 'lucide-react';
+
+import { ShieldCheck, GraduationCap, UserCheck, RefreshCw, LogOut } from 'lucide-react';
 
 export const Header: React.FC<{ onOpenRegisterModal?: () => void }> = ({ onOpenRegisterModal }) => {
   const { role, setRole, currentUser, logout, resetToDefault } = useApp();
@@ -11,9 +11,7 @@ export const Header: React.FC<{ onOpenRegisterModal?: () => void }> = ({ onOpenR
       <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-3">
         {/* Zone 1: Single text element wordmark */}
         <div className="flex items-center gap-2.5">
-          <div className="w-8 h-8 rounded-lg bg-teal-600 flex items-center justify-center text-white shadow-xs shrink-0">
-            <BookOpen className="w-4 h-4" />
-          </div>
+          <img src="/assets/andhra-pradesh.png" width="48" height="48" alt="Government of Andhra Pradesh" className="shrink-0 object-contain" />
           <div className="flex flex-col">
             <span className="text-base sm:text-lg font-bold tracking-tight text-slate-900 whitespace-nowrap leading-none">
               Kadiri Study Circle
@@ -22,6 +20,7 @@ export const Header: React.FC<{ onOpenRegisterModal?: () => void }> = ({ onOpenR
               APPSC Group I & Group II Coaching
             </span>
           </div>
+          <img src="/assets/sri-sathya-sai.jpeg" width="48" height="48" alt="Sri Sathya Sai district" className="shrink-0 object-contain" />
         </div>
 
         {/* Zone 2: Navigation / Authority Scope */}

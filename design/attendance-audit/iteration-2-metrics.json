@@ -1,0 +1,172 @@
+[
+  {
+    "screen": "Attendance",
+    "cls": "0.005003256890006962",
+    "overflow": false,
+    "primaryAboveFold": true,
+    "primaryCount": 1,
+    "small": [],
+    "tiny": [],
+    "width": 390
+  },
+  {
+    "screen": "Students",
+    "cls": "0.005003256890006962",
+    "overflow": false,
+    "primaryAboveFold": true,
+    "primaryCount": 1,
+    "small": [],
+    "tiny": [],
+    "width": 390
+  },
+  {
+    "screen": "Reports",
+    "cls": "0.005003256890006962",
+    "overflow": false,
+    "primaryAboveFold": true,
+    "primaryCount": 1,
+    "small": [],
+    "tiny": [],
+    "width": 390
+  },
+  {
+    "screen": "Account",
+    "cls": "0.005003256890006962",
+    "overflow": false,
+    "primaryAboveFold": true,
+    "primaryCount": 1,
+    "small": [],
+    "tiny": [],
+    "width": 390
+  },
+  {
+    "screen": "Login",
+    "cls": "0.005003256890006962",
+    "overflow": false,
+    "primaryAboveFold": true,
+    "primaryCount": 1,
+    "small": [],
+    "tiny": [],
+    "width": 390
+  },
+  {
+    "screen": "Attendance",
+    "cls": "0.005003256890006962",
+    "overflow": false,
+    "primaryAboveFold": true,
+    "primaryCount": 1,
+    "small": [],
+    "tiny": [],
+    "width": 360
+  },
+  {
+    "screen": "Students",
+    "cls": "0.005003256890006962",
+    "overflow": false,
+    "primaryAboveFold": true,
+    "primaryCount": 1,
+    "small": [],
+    "tiny": [],
+    "width": 360
+  },
+  {
+    "screen": "Attendance",
+    "cls": "0",
+    "minButtonHeight": 48,
+    "minButtonWidth": 48,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 360
+  },
+  {
+    "screen": "Students",
+    "cls": "0",
+    "minButtonHeight": 48,
+    "minButtonWidth": 86.5,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 360
+  },
+  {
+    "screen": "Reports",
+    "cls": "0",
+    "minButtonHeight": 48,
+    "minButtonWidth": 48,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 360
+  },
+  {
+    "screen": "Account",
+    "cls": "0",
+    "minButtonHeight": 48,
+    "minButtonWidth": 88,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 360
+  },
+  {
+    "screen": "Login",
+    "cls": "0",
+    "minButtonHeight": 48,
+    "minButtonWidth": 163.65625,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 360
+  },
+  {
+    "screen": "Attendance",
+    "cls": "0",
+    "minButtonHeight": 48,
+    "minButtonWidth": 48,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 768
+  },
+  {
+    "screen": "Students",
+    "cls": "0",
+    "minButtonHeight": 48,
+    "minButtonWidth": 178,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 768
+  },
+  {
+    "screen": "Reports",
+    "cls": "0",
+    "minButtonHeight": 48,
+    "minButtonWidth": 48,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 768
+  },
+  {
+    "screen": "Account",
+    "cls": "0",
+    "minButtonHeight": 48,
+    "minButtonWidth": 178,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 768
+  },
+  {
+    "screen": "Login",
+    "cls": "0",
+    "minButtonHeight": 48,
+    "minButtonWidth": 163.65625,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 768
+  }
+]

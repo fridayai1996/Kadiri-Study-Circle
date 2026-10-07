@@ -1,0 +1,254 @@
+[
+  {
+    "iteration": 3,
+    "screen": "Attendance",
+    "cls": "0",
+    "images": [
+      {
+        "alt": "Government of Andhra Pradesh",
+        "loaded": true
+      },
+      {
+        "alt": "Sri Sathya Sai district",
+        "loaded": true
+      }
+    ],
+    "minButtonHeight": 48,
+    "minButtonWidth": 48,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 390
+  },
+  {
+    "iteration": 3,
+    "screen": "Students",
+    "cls": "0",
+    "images": [
+      {
+        "alt": "Government of Andhra Pradesh",
+        "loaded": true
+      },
+      {
+        "alt": "Sri Sathya Sai district",
+        "loaded": true
+      }
+    ],
+    "minButtonHeight": 52,
+    "minButtonWidth": 94,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 390
+  },
+  {
+    "iteration": 3,
+    "screen": "Reports",
+    "cls": "0",
+    "images": [
+      {
+        "alt": "Government of Andhra Pradesh",
+        "loaded": true
+      },
+      {
+        "alt": "Sri Sathya Sai district",
+        "loaded": true
+      }
+    ],
+    "minButtonHeight": 48,
+    "minButtonWidth": 48,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 390
+  },
+  {
+    "iteration": 3,
+    "screen": "Account",
+    "cls": "0",
+    "images": [
+      {
+        "alt": "Government of Andhra Pradesh",
+        "loaded": true
+      },
+      {
+        "alt": "Sri Sathya Sai district",
+        "loaded": true
+      }
+    ],
+    "minButtonHeight": 48,
+    "minButtonWidth": 85.0859375,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 390
+  },
+  {
+    "iteration": 3,
+    "screen": "Attendance",
+    "cls": "0",
+    "images": [
+      {
+        "alt": "Government of Andhra Pradesh",
+        "loaded": true
+      },
+      {
+        "alt": "Sri Sathya Sai district",
+        "loaded": true
+      }
+    ],
+    "minButtonHeight": 48,
+    "minButtonWidth": 48,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 360
+  },
+  {
+    "iteration": 3,
+    "screen": "Students",
+    "cls": "0",
+    "images": [
+      {
+        "alt": "Government of Andhra Pradesh",
+        "loaded": true
+      },
+      {
+        "alt": "Sri Sathya Sai district",
+        "loaded": true
+      }
+    ],
+    "minButtonHeight": 52,
+    "minButtonWidth": 86.5,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 360
+  },
+  {
+    "iteration": 3,
+    "screen": "Reports",
+    "cls": "0",
+    "images": [
+      {
+        "alt": "Government of Andhra Pradesh",
+        "loaded": true
+      },
+      {
+        "alt": "Sri Sathya Sai district",
+        "loaded": true
+      }
+    ],
+    "minButtonHeight": 48,
+    "minButtonWidth": 48,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 360
+  },
+  {
+    "iteration": 3,
+    "screen": "Account",
+    "cls": "0",
+    "images": [
+      {
+        "alt": "Government of Andhra Pradesh",
+        "loaded": true
+      },
+      {
+        "alt": "Sri Sathya Sai district",
+        "loaded": true
+      }
+    ],
+    "minButtonHeight": 48,
+    "minButtonWidth": 85.0859375,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 360
+  },
+  {
+    "iteration": 3,
+    "screen": "Attendance",
+    "cls": "0",
+    "images": [
+      {
+        "alt": "Government of Andhra Pradesh",
+        "loaded": true
+      },
+      {
+        "alt": "Sri Sathya Sai district",
+        "loaded": true
+      }
+    ],
+    "minButtonHeight": 48,
+    "minButtonWidth": 48,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 768
+  },
+  {
+    "iteration": 3,
+    "screen": "Students",
+    "cls": "0",
+    "images": [
+      {
+        "alt": "Government of Andhra Pradesh",
+        "loaded": true
+      },
+      {
+        "alt": "Sri Sathya Sai district",
+        "loaded": true
+      }
+    ],
+    "minButtonHeight": 52,
+    "minButtonWidth": 178,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 768
+  },
+  {
+    "iteration": 3,
+    "screen": "Reports",
+    "cls": "0",
+    "images": [
+      {
+        "alt": "Government of Andhra Pradesh",
+        "loaded": true
+      },
+      {
+        "alt": "Sri Sathya Sai district",
+        "loaded": true
+      }
+    ],
+    "minButtonHeight": 48,
+    "minButtonWidth": 48,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 768
+  },
+  {
+    "iteration": 3,
+    "screen": "Account",
+    "cls": "0",
+    "images": [
+      {
+        "alt": "Government of Andhra Pradesh",
+        "loaded": true
+      },
+      {
+        "alt": "Sri Sathya Sai district",
+        "loaded": true
+      }
+    ],
+    "minButtonHeight": 48,
+    "minButtonWidth": 85.0859375,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 768
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "iteration": 1,
+    "screen": "Attendance",
+    "cls": "0",
+    "overflow": false,
+    "primaryCount": 1,
+    "small": [],
+    "tiny": [],
+    "width": 390
+  },
+  {
+    "iteration": 1,
+    "screen": "Students",
+    "cls": "0",
+    "overflow": false,
+    "primaryCount": 1,
+    "small": [],
+    "tiny": [],
+    "width": 390
+  },
+  {
+    "iteration": 1,
+    "screen": "Reports",
+    "cls": "0",
+    "overflow": false,
+    "primaryCount": 1,
+    "small": [],
+    "tiny": [],
+    "width": 390
+  },
+  {
+    "iteration": 1,
+    "screen": "Account",
+    "cls": "0",
+    "overflow": false,
+    "primaryCount": 1,
+    "small": [],
+    "tiny": [],
+    "width": 390
+  },
+  {
+    "iteration": 1,
+    "screen": "Attendance",
+    "cls": "0",
+    "overflow": false,
+    "primaryCount": 1,
+    "small": [],
+    "tiny": [],
+    "width": 360
+  },
+  {
+    "iteration": 1,
+    "screen": "Students",
+    "cls": "0",
+    "overflow": false,
+    "primaryCount": 1,
+    "small": [],
+    "tiny": [],
+    "width": 360
+  },
+  {
+    "iteration": 1,
+    "screen": "Reports",
+    "cls": "0",
+    "overflow": false,
+    "primaryCount": 1,
+    "small": [],
+    "tiny": [],
+    "width": 360
+  },
+  {
+    "iteration": 1,
+    "screen": "Account",
+    "cls": "0",
+    "overflow": false,
+    "primaryCount": 1,
+    "small": [],
+    "tiny": [],
+    "width": 360
+  },
+  {
+    "iteration": 1,
+    "screen": "Attendance",
+    "cls": "0",
+    "overflow": false,
+    "primaryCount": 1,
+    "small": [],
+    "tiny": [],
+    "width": 768
+  },
+  {
+    "iteration": 1,
+    "screen": "Students",
+    "cls": "0",
+    "overflow": false,
+    "primaryCount": 1,
+    "small": [],
+    "tiny": [],
+    "width": 768
+  },
+  {
+    "iteration": 1,
+    "screen": "Reports",
+    "cls": "0",
+    "overflow": false,
+    "primaryCount": 1,
+    "small": [],
+    "tiny": [],
+    "width": 768
+  },
+  {
+    "iteration": 1,
+    "screen": "Account",
+    "cls": "0",
+    "overflow": false,
+    "primaryCount": 1,
+    "small": [],
+    "tiny": [],
+    "width": 768
+  }
+]

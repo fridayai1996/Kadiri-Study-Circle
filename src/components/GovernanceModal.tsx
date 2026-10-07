@@ -1,5 +1,5 @@
 import React from 'react';
-import { X, ShieldCheck, GraduationCap, UserCheck, CheckCircle2, ArrowRight } from 'lucide-react';
+import { X, ShieldCheck, GraduationCap, UserCheck, CheckCircle2 } from 'lucide-react';
 
 interface Props {
   isOpen: boolean;

@@ -1,4 +1,4 @@
-import { Student, Faculty, ClassLog, DailyAttendanceRecord, MockTest, StudentTestScore, SubjectModule, Announcement } from '../types';
+import { Student, Faculty, ClassLog, MockTest, StudentTestScore, SubjectModule, Announcement } from '../types';
 
 export const INITIAL_STUDENTS: Student[] = [
   // Group I (12 students) - Target Group I (Executive, Deputy Collectors, DSP, etc.)

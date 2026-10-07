@@ -1,8 +1,0 @@
-{
-  "name": "Kadiri Study Circle",
-  "description": "Clean, mobile-first APPSC coaching management app with Admin, Faculty, and Student portals for attendance, daily logs, and individual academic tracking.",
-  "requestFramePermissions": [],
-  "majorCapabilities": [
-    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
-  ]
-}

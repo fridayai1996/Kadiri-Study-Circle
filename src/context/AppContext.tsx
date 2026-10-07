@@ -1,27 +1,7 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import {
-  Role,
-  Student,
-  Faculty,
-  ClassLog,
-  MockTest,
-  StudentTestScore,
-  SubjectModule,
-  Announcement,
-  StudentGroup,
-  AttendanceStatus,
-  AuthUser
-} from '../types';
-import {
-  INITIAL_STUDENTS,
-  INITIAL_FACULTY,
-  INITIAL_CLASS_LOGS,
-  INITIAL_MOCK_TESTS,
-  INITIAL_TEST_SCORES,
-  INITIAL_SYLLABUS_MODULES,
-  INITIAL_ANNOUNCEMENTS,
-  INITIAL_DAILY_TREND
-} from '../data/initialData';
+import { applyAttendance } from '../attendance';
+import { Role, Student, Faculty, ClassLog, MockTest, StudentTestScore, SubjectModule, Announcement, AttendanceStatus, AuthUser } from '../types';
+import { INITIAL_STUDENTS, INITIAL_FACULTY, INITIAL_CLASS_LOGS, INITIAL_MOCK_TESTS, INITIAL_TEST_SCORES, INITIAL_SYLLABUS_MODULES, INITIAL_ANNOUNCEMENTS } from '../data/initialData';
 
 interface ToastMessage {
   id: string;
@@ -40,7 +20,7 @@ interface AppContextType {
   setActiveStudentId: (id: string) => void;
   activeTeacherId: string;
   setActiveTeacherId: (id: string) => void;
-  
+
   students: Student[];
   faculty: Faculty[];
   classLogs: ClassLog[];
@@ -49,24 +29,24 @@ interface AppContextType {
   syllabusModules: SubjectModule[];
   announcements: Announcement[];
   dailyAttendanceHistory: { [dateStr: string]: { [studentId: string]: AttendanceStatus } };
-  
+
   // Actions
   addStudent: (newStudent: Omit<Student, 'id' | 'attendancePercentage' | 'totalClasses' | 'attendedClasses'>) => void;
   updateStudent: (id: string, updates: Partial<Student>) => void;
   deleteStudent: (id: string) => void;
-  
+
   markDailyAttendance: (date: string, attendanceMap: { [studentId: string]: AttendanceStatus }) => void;
-  
+
   addClassLog: (log: Omit<ClassLog, 'id'>) => void;
   updateClassLog: (id: string, updates: Partial<ClassLog>) => void;
   deleteClassLog: (id: string) => void;
-  
+
   addFaculty: (faculty: Omit<Faculty, 'id' | 'classesTaken'>) => void;
   updateFaculty: (id: string, updates: Partial<Faculty>) => void;
   addAnnouncement: (announcement: Omit<Announcement, 'id' | 'date'>) => void;
   addTestScore: (score: Omit<StudentTestScore, 'id'>) => void;
   toggleSyllabusTopic: (moduleId: string, topicIndex: number) => void;
-  
+
   resetToDefault: () => void;
   toasts: ToastMessage[];
   showToast: (toast: Omit<ToastMessage, 'id'>) => void;
@@ -179,7 +159,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   // Login handler with strict validation
   const login = (targetRole: Role, identifier: string, password?: string): { success: boolean; message?: string } => {
     if (targetRole === 'admin') {
-      const trimmed = identifier.trim().toLowerCase();
       // Pre-set admin credentials: admin@kadirisc.in or admin / kadiri2026
       if (password && password.trim() !== 'admin' && password.trim() !== 'kadiri2026' && password.trim() !== '1234') {
         return { success: false, message: 'Invalid Admin password. Use demo password: admin' };
@@ -383,26 +362,16 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const markDailyAttendance = (date: string, attendanceMap: { [studentId: string]: AttendanceStatus }) => {
+    if (!currentUser || currentUser.role === 'student') return;
+    const previous = dailyAttendanceHistory[date] || {};
     setDailyAttendanceHistory(prev => ({
       ...prev,
-      [date]: attendanceMap
+        [date]: { ...prev[date], ...attendanceMap }
     }));
 
     // Update cumulative student attendance count
     setStudents(prev =>
-      prev.map(st => {
-        const status = attendanceMap[st.id];
-        if (!status) return st;
-        const newTotal = (st.totalClasses || 0) + 1;
-        const newAttended = (st.attendedClasses || 0) + (status === 'present' || status === 'late' ? 1 : 0);
-        const newPct = Math.round((newAttended / newTotal) * 1000) / 10;
-        return {
-          ...st,
-          totalClasses: newTotal,
-          attendedClasses: newAttended,
-          attendancePercentage: newPct
-        };
-      })
+      applyAttendance(prev, previous, attendanceMap).students
     );
 
     const presentCount = Object.values(attendanceMap).filter(v => v === 'present' || v === 'late').length;

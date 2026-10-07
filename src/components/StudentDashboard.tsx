@@ -1,23 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import {
-  User,
-  CheckCircle2,
-  AlertTriangle,
-  Award,
-  BookOpen,
-  Calendar,
-  Clock,
-  ChevronDown,
-  CheckSquare,
-  Square,
-  Sparkles,
-  Phone,
-  Mail,
-  ShieldCheck,
-  Target,
-  FileText
-} from 'lucide-react';
+import { CheckCircle2, AlertTriangle, Award, BookOpen, Calendar, CheckSquare, Square, ShieldCheck } from 'lucide-react';
 import { RegisterStudentModal } from './RegisterStudentModal';
 import { StudentCorrectionModal } from './StudentCorrectionModal';
 
@@ -33,13 +16,11 @@ export const StudentDashboard: React.FC = () => {
     mockTests,
     dailyAttendanceHistory,
     announcements,
-    classLogs,
     showToast
   } = useApp();
 
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
   const [isCorrectionModalOpen, setIsCorrectionModalOpen] = useState(false);
-  const [selectedMonth, setSelectedMonth] = useState('September 2026');
 
   // Active student - strictly locked to currentUser if logged in as student
   const effectiveStudentId = currentUser?.role === 'student' ? currentUser.id : activeStudentId;

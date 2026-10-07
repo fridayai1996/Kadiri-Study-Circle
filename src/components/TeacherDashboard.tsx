@@ -1,23 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { StudentGroup, AttendanceStatus, ClassLog, Faculty } from '../types';
-import {
-  Calendar,
-  CheckCircle2,
-  XCircle,
-  Clock,
-  Save,
-  BookOpen,
-  Plus,
-  Users,
-  Search,
-  Filter,
-  Sparkles,
-  TrendingUp,
-  FileCheck,
-  Pencil,
-  GraduationCap
-} from 'lucide-react';
+import { Calendar, Save, Plus, Search, Pencil, GraduationCap } from 'lucide-react';
 import { LogClassModal } from './LogClassModal';
 import { EditFacultyModal } from './EditFacultyModal';
 
@@ -39,7 +23,7 @@ export const TeacherDashboard: React.FC = () => {
   const [selectedDate, setSelectedDate] = useState(() => new Date().toISOString().split('T')[0]);
   const [selectedGroup, setSelectedGroup] = useState<'All' | StudentGroup>('All');
   const [searchQuery, setSearchQuery] = useState('');
-  
+
   // Local state for attendance marking
   const [attendanceSheet, setAttendanceSheet] = useState<{ [studentId: string]: AttendanceStatus }>({});
 

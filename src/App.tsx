@@ -13,12 +13,14 @@ import { StudentDashboard } from './components/StudentDashboard';
 import { MobileBottomNav } from './components/MobileBottomNav';
 import { ToastContainer } from './components/ToastContainer';
 import { RegisterStudentModal } from './components/RegisterStudentModal';
+import { AttendanceMobile } from './components/AttendanceMobile';
+import './attendance-theme.css';
 
 const MainContent: React.FC = () => {
   const { currentUser, role } = useApp();
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
 
-  // If user is not authenticated, show secure login gate
+  // Open the role-specific local demo session.
   if (!currentUser) {
     return (
       <>
@@ -64,9 +66,19 @@ const MainContent: React.FC = () => {
 };
 
 export default function App() {
+  const [portal, setPortal] = useState(false);
   return (
     <AppProvider>
-      <MainContent />
+      {portal ? (
+        <div className="ksc-portal">
+          <button className="return-mobile" onClick={() => setPortal(false)}>
+            ← Attendance app
+          </button>
+          <MainContent />
+        </div>
+      ) : (
+        <AttendanceMobile onOpenPortal={() => setPortal(true)} />
+      )}
     </AppProvider>
   );
 }

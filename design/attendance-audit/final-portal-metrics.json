@@ -1,0 +1,122 @@
+[
+  {
+    "screen": "Faculty portal",
+    "cls": "0",
+    "images": [
+      {
+        "alt": "Government of Andhra Pradesh",
+        "loaded": true
+      },
+      {
+        "alt": "Sri Sathya Sai district",
+        "loaded": true
+      }
+    ],
+    "minButtonHeight": 48,
+    "minButtonWidth": 32.1796875,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 0,
+    "width": 390
+  },
+  {
+    "screen": "Faculty portal",
+    "cls": "0",
+    "images": [
+      {
+        "alt": "Government of Andhra Pradesh",
+        "loaded": true
+      },
+      {
+        "alt": "Sri Sathya Sai district",
+        "loaded": true
+      }
+    ],
+    "minButtonHeight": 48,
+    "minButtonWidth": 32.1796875,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 0,
+    "width": 360
+  },
+  {
+    "screen": "Faculty portal",
+    "cls": "0",
+    "images": [
+      {
+        "alt": "Government of Andhra Pradesh",
+        "loaded": true
+      },
+      {
+        "alt": "Sri Sathya Sai district",
+        "loaded": true
+      }
+    ],
+    "minButtonHeight": 0,
+    "minButtonWidth": 0,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 0,
+    "width": 768
+  },
+  {
+    "screen": "Login",
+    "cls": "0",
+    "images": [
+      {
+        "alt": "Government of Andhra Pradesh",
+        "loaded": true
+      },
+      {
+        "alt": "Sri Sathya Sai district",
+        "loaded": true
+      }
+    ],
+    "minButtonHeight": 48,
+    "minButtonWidth": 48,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 390
+  },
+  {
+    "screen": "Login",
+    "cls": "0",
+    "images": [
+      {
+        "alt": "Government of Andhra Pradesh",
+        "loaded": true
+      },
+      {
+        "alt": "Sri Sathya Sai district",
+        "loaded": true
+      }
+    ],
+    "minButtonHeight": 48,
+    "minButtonWidth": 48,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 360
+  },
+  {
+    "screen": "Login",
+    "cls": "0",
+    "images": [
+      {
+        "alt": "Government of Andhra Pradesh",
+        "loaded": true
+      },
+      {
+        "alt": "Sri Sathya Sai district",
+        "loaded": true
+      }
+    ],
+    "minButtonHeight": 48,
+    "minButtonWidth": 48,
+    "minText": 16,
+    "overflow": false,
+    "primaryCount": 1,
+    "width": 768
+  }
+]

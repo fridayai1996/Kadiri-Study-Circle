@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useApp } from '../context/AppContext';
 import { Faculty, StudentGroup } from '../types';
-import { X, GraduationCap, CheckCircle2, UserCheck, BookOpen } from 'lucide-react';
+import { X, GraduationCap, CheckCircle2 } from 'lucide-react';
 
 interface Props {
   isOpen: boolean;

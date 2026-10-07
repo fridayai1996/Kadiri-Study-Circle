@@ -1,26 +1,7 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
 import { StudentGroup, ClassLog } from '../types';
-import {
-  Users,
-  Calendar,
-  Award,
-  AlertTriangle,
-  TrendingUp,
-  Search,
-  Filter,
-  Plus,
-  FileText,
-  PhoneCall,
-  CheckCircle2,
-  Clock,
-  Sparkles,
-  ChevronRight,
-  Download,
-  AlertCircle,
-  ShieldCheck,
-  Pencil
-} from 'lucide-react';
+import { Users, Calendar, AlertTriangle, TrendingUp, Search, Plus, Download, AlertCircle, ShieldCheck, Pencil } from 'lucide-react';
 import { LogClassModal } from './LogClassModal';
 import { RegisterStudentModal } from './RegisterStudentModal';
 import { EditStudentModal } from './EditStudentModal';
@@ -43,7 +24,7 @@ export const AdminDashboard: React.FC = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedGroup, setSelectedGroup] = useState<'All' | StudentGroup>('All');
   const [attendanceFilter, setAttendanceFilter] = useState<'all' | 'low' | 'high'>('all');
-  
+
   const [isRegisterOpen, setIsRegisterOpen] = useState(false);
   const [isLogClassOpen, setIsLogClassOpen] = useState(false);
   const [isGovernanceOpen, setIsGovernanceOpen] = useState(false);

@@ -1,0 +1,36 @@
+name: kadiri_attendance
+description: Offline attendance register for Kadiri Study Circle.
+publish_to: none
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.13.4
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.8
+  shared_preferences: ^2.5.3
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+  flutter_launcher_icons: ^0.14.4
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/district-logo.jpeg
+    - assets/students.json
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  image_path: assets/district-logo.jpeg
+  remove_alpha_ios: true
+  web:
+    generate: true
+    image_path: assets/district-logo.jpeg
+    background_color: '#092653'
+    theme_color: '#092653'

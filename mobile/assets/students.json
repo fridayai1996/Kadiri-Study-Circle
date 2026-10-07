@@ -1,0 +1,212 @@
+[
+  {
+    "id": "std-g1-01",
+    "rollNo": "KSC-G1-01",
+    "name": "K. Anusha Reddy",
+    "group": "Group I"
+  },
+  {
+    "id": "std-g1-02",
+    "rollNo": "KSC-G1-02",
+    "name": "B. Sreenivasa Rao",
+    "group": "Group I"
+  },
+  {
+    "id": "std-g1-03",
+    "rollNo": "KSC-G1-03",
+    "name": "C. Vani Madhavi",
+    "group": "Group I"
+  },
+  {
+    "id": "std-g1-04",
+    "rollNo": "KSC-G1-04",
+    "name": "M. Mahesh Kumar",
+    "group": "Group I"
+  },
+  {
+    "id": "std-g1-05",
+    "rollNo": "KSC-G1-05",
+    "name": "P. Sai Charitha",
+    "group": "Group I"
+  },
+  {
+    "id": "std-g1-06",
+    "rollNo": "KSC-G1-06",
+    "name": "D. Venkatasubbaiah",
+    "group": "Group I"
+  },
+  {
+    "id": "std-g1-07",
+    "rollNo": "KSC-G1-07",
+    "name": "T. Harikrishna Naidu",
+    "group": "Group I"
+  },
+  {
+    "id": "std-g1-08",
+    "rollNo": "KSC-G1-08",
+    "name": "G. Swetha Kumari",
+    "group": "Group I"
+  },
+  {
+    "id": "std-g1-09",
+    "rollNo": "KSC-G1-09",
+    "name": "Y. Ravi Teja",
+    "group": "Group I"
+  },
+  {
+    "id": "std-g1-10",
+    "rollNo": "KSC-G1-10",
+    "name": "K. Suneetha Devi",
+    "group": "Group I"
+  },
+  {
+    "id": "std-g1-11",
+    "rollNo": "KSC-G1-11",
+    "name": "S. Nazeer Ahmed",
+    "group": "Group I"
+  },
+  {
+    "id": "std-g1-12",
+    "rollNo": "KSC-G1-12",
+    "name": "R. Sandeep Verma",
+    "group": "Group I"
+  },
+  {
+    "id": "std-g2-01",
+    "rollNo": "KSC-G2-01",
+    "name": "A. Venkata Raman",
+    "group": "Group II"
+  },
+  {
+    "id": "std-g2-02",
+    "rollNo": "KSC-G2-02",
+    "name": "P. Bhavani Shankar",
+    "group": "Group II"
+  },
+  {
+    "id": "std-g2-03",
+    "rollNo": "KSC-G2-03",
+    "name": "M. Padmavathi",
+    "group": "Group II"
+  },
+  {
+    "id": "std-g2-04",
+    "rollNo": "KSC-G2-04",
+    "name": "N. Lokesh Babu",
+    "group": "Group II"
+  },
+  {
+    "id": "std-g2-05",
+    "rollNo": "KSC-G2-05",
+    "name": "K. Chandrasekhar",
+    "group": "Group II"
+  },
+  {
+    "id": "std-g2-06",
+    "rollNo": "KSC-G2-06",
+    "name": "J. Deepthi Bai",
+    "group": "Group II"
+  },
+  {
+    "id": "std-g2-07",
+    "rollNo": "KSC-G2-07",
+    "name": "V. Ramanjaneyulu",
+    "group": "Group II"
+  },
+  {
+    "id": "std-g2-08",
+    "rollNo": "KSC-G2-08",
+    "name": "G. Madhusudhan Reddy",
+    "group": "Group II"
+  },
+  {
+    "id": "std-g2-09",
+    "rollNo": "KSC-G2-09",
+    "name": "B. Kalyani",
+    "group": "Group II"
+  },
+  {
+    "id": "std-g2-10",
+    "rollNo": "KSC-G2-10",
+    "name": "M. Surendra Babu",
+    "group": "Group II"
+  },
+  {
+    "id": "std-g2-11",
+    "rollNo": "KSC-G2-11",
+    "name": "S. Fathima Bi",
+    "group": "Group II"
+  },
+  {
+    "id": "std-g2-12",
+    "rollNo": "KSC-G2-12",
+    "name": "C. Raghavendra",
+    "group": "Group II"
+  },
+  {
+    "id": "std-g2-13",
+    "rollNo": "KSC-G2-13",
+    "name": "T. Lavanya",
+    "group": "Group II"
+  },
+  {
+    "id": "std-g2-14",
+    "rollNo": "KSC-G2-14",
+    "name": "P. Shiva Kumar",
+    "group": "Group II"
+  },
+  {
+    "id": "std-g2-15",
+    "rollNo": "KSC-G2-15",
+    "name": "K. Prasanth Reddy",
+    "group": "Group II"
+  },
+  {
+    "id": "std-g2-16",
+    "rollNo": "KSC-G2-16",
+    "name": "D. Hemalatha",
+    "group": "Group II"
+  },
+  {
+    "id": "std-g2-17",
+    "rollNo": "KSC-G2-17",
+    "name": "E. Mallikarjuna",
+    "group": "Group II"
+  },
+  {
+    "id": "std-g2-18",
+    "rollNo": "KSC-G2-18",
+    "name": "U. Geethanjali",
+    "group": "Group II"
+  },
+  {
+    "id": "std-g2-19",
+    "rollNo": "KSC-G2-19",
+    "name": "V. Rajesh Naik",
+    "group": "Group II"
+  },
+  {
+    "id": "std-g2-20",
+    "rollNo": "KSC-G2-20",
+    "name": "B. Jagadeesh",
+    "group": "Group II"
+  },
+  {
+    "id": "std-g2-21",
+    "rollNo": "KSC-G2-21",
+    "name": "N. Roopa Sree",
+    "group": "Group II"
+  },
+  {
+    "id": "std-g2-22",
+    "rollNo": "KSC-G2-22",
+    "name": "K. Venkateswarlu",
+    "group": "Group II"
+  },
+  {
+    "id": "std-g2-23",
+    "rollNo": "KSC-G2-23",
+    "name": "T. Bharathi",
+    "group": "Group II"
+  }
+]

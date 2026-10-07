@@ -1,0 +1,32 @@
+[
+  {
+    "label": "body",
+    "fg": "#102d50",
+    "bg": "#ffffff",
+    "ratio": 13.87765764606989
+  },
+  {
+    "label": "muted",
+    "fg": "#505d6b",
+    "bg": "#ffffff",
+    "ratio": 6.732619924898867
+  },
+  {
+    "label": "muted on canvas",
+    "fg": "#505d6b",
+    "bg": "#f2f2f7",
+    "ratio": 6.033511550362474
+  },
+  {
+    "label": "primary",
+    "fg": "#ffffff",
+    "bg": "#102d50",
+    "ratio": 13.87765764606989
+  },
+  {
+    "label": "disabled",
+    "fg": "#505d6b",
+    "bg": "#e8edf3",
+    "ratio": 5.719215922770699
+  }
+]

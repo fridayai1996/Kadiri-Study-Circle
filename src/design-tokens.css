@@ -1,0 +1,7 @@
+:root {
+ --ksc-ink:#102d50; --ksc-muted:#505d6b; --ksc-paper:#fff; --ksc-canvas:#f2f2f7; --ksc-soft:#e8edf3; --ksc-line:#c7cbd1; --ksc-accent:#102d50; --ksc-focus:#005bb5; --ksc-brand-accent:#c65d00;
+ --ksc-font:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+ --ksc-body:1rem; --ksc-section:1.25rem; --ksc-title:2rem; --ksc-display:3rem; --ksc-leading:1.5; --ksc-tight:1.125;
+ --ksc-s1:4px; --ksc-s2:8px; --ksc-s3:12px; --ksc-s4:16px; --ksc-s5:24px; --ksc-s6:32px; --ksc-s7:48px;
+ --ksc-radius:12px; --ksc-touch:48px; --ksc-width:720px; --ksc-nav-height:80px; --ksc-motion:120ms;
+}

@@ -12,7 +12,7 @@ interface ToastMessage {
 
 interface AppContextType {
   currentUser: AuthUser | null;
-  login: (role: Role, identifier: string, password?: string) => { success: boolean; message?: string };
+  login: (role: Role, identifier: string, password?: string) => { success: boolean; message?: string; };
   logout: () => void;
   role: Role;
   setRole: (role: Role) => void;
@@ -28,14 +28,14 @@ interface AppContextType {
   testScores: StudentTestScore[];
   syllabusModules: SubjectModule[];
   announcements: Announcement[];
-  dailyAttendanceHistory: { [dateStr: string]: { [studentId: string]: AttendanceStatus } };
+  dailyAttendanceHistory: { [dateStr: string]: { [studentId: string]: AttendanceStatus; }; };
 
   // Actions
   addStudent: (newStudent: Omit<Student, 'id' | 'attendancePercentage' | 'totalClasses' | 'attendedClasses'>) => void;
   updateStudent: (id: string, updates: Partial<Student>) => void;
   deleteStudent: (id: string) => void;
 
-  markDailyAttendance: (date: string, attendanceMap: { [studentId: string]: AttendanceStatus }) => void;
+  markDailyAttendance: (date: string, attendanceMap: { [studentId: string]: AttendanceStatus; }) => void;
 
   addClassLog: (log: Omit<ClassLog, 'id'>) => void;
   updateClassLog: (id: string, updates: Partial<ClassLog>) => void;
@@ -57,14 +57,111 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 const STORAGE_KEY = 'ksc_kadiri_study_circle_v2';
 
+// ---- Persistence keys (kept backward-compatible; do not rename) ----
+
+const AUTH_KEY = 'ksc_current_user_v2';
+const ROLE_KEY = 'ksc_user_role';
+const ACTIVE_STUDENT_KEY = 'ksc_active_student';
+const ACTIVE_TEACHER_KEY = 'ksc_active_teacher';
+
+const DATA_KEYS = {
+  students: `${STORAGE_KEY}_students`,
+  faculty: `${STORAGE_KEY}_faculty`,
+  classLogs: `${STORAGE_KEY}_classLogs`,
+  mockTests: `${STORAGE_KEY}_mockTests`,
+  testScores: `${STORAGE_KEY}_testScores`,
+  syllabus: `${STORAGE_KEY}_syllabus`,
+  announcements: `${STORAGE_KEY}_announcements`,
+  attendanceHistory: `${STORAGE_KEY}_attendanceHistory`,
+} as const;
+
+type DataState = {
+  students: Student[];
+  faculty: Faculty[];
+  classLogs: ClassLog[];
+  mockTests: MockTest[];
+  testScores: StudentTestScore[];
+  syllabusModules: SubjectModule[];
+  announcements: Announcement[];
+  dailyAttendanceHistory: { [dateStr: string]: { [studentId: string]: AttendanceStatus; }; };
+};
+
+// ---- Single persistence effect: writes all data + session fields on any change ----
+function usePersist({
+  role,
+  activeStudentId,
+  activeTeacherId,
+  data,
+}: {
+  role: Role;
+  activeStudentId: string;
+  activeTeacherId: string;
+  data: DataState;
+}) {
+  useEffect(() => {
+    localStorage.setItem(ROLE_KEY, role);
+    localStorage.setItem(ACTIVE_STUDENT_KEY, activeStudentId);
+    localStorage.setItem(ACTIVE_TEACHER_KEY, activeTeacherId);
+    localStorage.setItem(DATA_KEYS.students, JSON.stringify(data.students));
+    localStorage.setItem(DATA_KEYS.faculty, JSON.stringify(data.faculty));
+    localStorage.setItem(DATA_KEYS.classLogs, JSON.stringify(data.classLogs));
+    localStorage.setItem(DATA_KEYS.mockTests, JSON.stringify(data.mockTests));
+    localStorage.setItem(DATA_KEYS.testScores, JSON.stringify(data.testScores));
+    localStorage.setItem(DATA_KEYS.syllabus, JSON.stringify(data.syllabusModules));
+    localStorage.setItem(DATA_KEYS.announcements, JSON.stringify(data.announcements));
+    localStorage.setItem(DATA_KEYS.attendanceHistory, JSON.stringify(data.dailyAttendanceHistory));
+  }, [role, activeStudentId, activeTeacherId, data]);
+}
+
+// ---- Helper: clear all data keys (used by resetToDefault) ----
+function clearDataKeys() {
+  localStorage.removeItem(DATA_KEYS.students);
+  localStorage.removeItem(DATA_KEYS.faculty);
+  localStorage.removeItem(DATA_KEYS.classLogs);
+  localStorage.removeItem(DATA_KEYS.mockTests);
+  localStorage.removeItem(DATA_KEYS.testScores);
+  localStorage.removeItem(DATA_KEYS.syllabus);
+  localStorage.removeItem(DATA_KEYS.announcements);
+  localStorage.removeItem(DATA_KEYS.attendanceHistory);
+}
+
+function readDataState(): DataState {
+  return {
+    students: (() => { const s = localStorage.getItem(DATA_KEYS.students); return s ? JSON.parse(s) : INITIAL_STUDENTS; })(),
+    faculty: (() => { const s = localStorage.getItem(DATA_KEYS.faculty); return s ? JSON.parse(s) : INITIAL_FACULTY; })(),
+    classLogs: (() => { const s = localStorage.getItem(DATA_KEYS.classLogs); return s ? JSON.parse(s) : INITIAL_CLASS_LOGS; })(),
+    mockTests: (() => { const s = localStorage.getItem(DATA_KEYS.mockTests); return s ? JSON.parse(s) : INITIAL_MOCK_TESTS; })(),
+    testScores: (() => { const s = localStorage.getItem(DATA_KEYS.testScores); return s ? JSON.parse(s) : INITIAL_TEST_SCORES; })(),
+    syllabusModules: (() => { const s = localStorage.getItem(DATA_KEYS.syllabus); return s ? JSON.parse(s) : INITIAL_SYLLABUS_MODULES; })(),
+    announcements: (() => { const s = localStorage.getItem(DATA_KEYS.announcements); return s ? JSON.parse(s) : INITIAL_ANNOUNCEMENTS; })(),
+    dailyAttendanceHistory: (() => {
+      const s = localStorage.getItem(DATA_KEYS.attendanceHistory);
+      if (s) return JSON.parse(s);
+      const map: { [dateStr: string]: { [studentId: string]: AttendanceStatus; } } = {};
+      const sept23: { [studentId: string]: AttendanceStatus; } = {};
+      const sept24: { [studentId: string]: AttendanceStatus; } = {};
+      const sept27: { [studentId: string]: AttendanceStatus; } = {};
+      INITIAL_STUDENTS.forEach((st, idx) => {
+        sept23[st.id] = idx < 32 ? 'present' : 'absent';
+        sept24[st.id] = idx < 33 ? 'present' : 'absent';
+        sept27[st.id] = (idx === 11 || idx === 32 || idx === 33 || idx === 34) ? 'absent' : 'present';
+      });
+      map['2026-09-23'] = sept23;
+      map['2026-09-24'] = sept24;
+      map['2026-09-27'] = sept27;
+      return map;
+    })(),
+  };
+}
+
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [currentUser, setCurrentUser] = useState<AuthUser | null>(() => {
-    const saved = localStorage.getItem('ksc_current_user_v2');
+    const saved = localStorage.getItem(AUTH_KEY);
     return saved ? JSON.parse(saved) : null;
   });
 
   const [role, setRoleState] = useState<Role>(() => {
-    const saved = localStorage.getItem('ksc_current_user_v2');
+    const saved = localStorage.getItem(AUTH_KEY);
     if (saved) {
       try {
         const u = JSON.parse(saved);
@@ -73,74 +170,25 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
         // fallback
       }
     }
-    return (localStorage.getItem('ksc_user_role') as Role) || 'admin';
+    return (localStorage.getItem(ROLE_KEY) as Role) || 'admin';
   });
 
   const [activeStudentId, setActiveStudentId] = useState<string>(() => {
-    return localStorage.getItem('ksc_active_student') || 'std-g1-01';
+    return localStorage.getItem(ACTIVE_STUDENT_KEY) || 'std-g1-01';
   });
 
   const [activeTeacherId, setActiveTeacherId] = useState<string>(() => {
-    return localStorage.getItem('ksc_active_teacher') || 'fac-01';
+    return localStorage.getItem(ACTIVE_TEACHER_KEY) || 'fac-01';
   });
 
-  const [students, setStudents] = useState<Student[]>(() => {
-    const saved = localStorage.getItem(`${STORAGE_KEY}_students`);
-    return saved ? JSON.parse(saved) : INITIAL_STUDENTS;
-  });
-
-  const [faculty, setFaculty] = useState<Faculty[]>(() => {
-    const saved = localStorage.getItem(`${STORAGE_KEY}_faculty`);
-    return saved ? JSON.parse(saved) : INITIAL_FACULTY;
-  });
-
-  const [classLogs, setClassLogs] = useState<ClassLog[]>(() => {
-    const saved = localStorage.getItem(`${STORAGE_KEY}_classLogs`);
-    return saved ? JSON.parse(saved) : INITIAL_CLASS_LOGS;
-  });
-
-  const [mockTests, setMockTests] = useState<MockTest[]>(() => {
-    const saved = localStorage.getItem(`${STORAGE_KEY}_mockTests`);
-    return saved ? JSON.parse(saved) : INITIAL_MOCK_TESTS;
-  });
-
-  const [testScores, setTestScores] = useState<StudentTestScore[]>(() => {
-    const saved = localStorage.getItem(`${STORAGE_KEY}_testScores`);
-    return saved ? JSON.parse(saved) : INITIAL_TEST_SCORES;
-  });
-
-  const [syllabusModules, setSyllabusModules] = useState<SubjectModule[]>(() => {
-    const saved = localStorage.getItem(`${STORAGE_KEY}_syllabus`);
-    return saved ? JSON.parse(saved) : INITIAL_SYLLABUS_MODULES;
-  });
-
-  const [announcements, setAnnouncements] = useState<Announcement[]>(() => {
-    const saved = localStorage.getItem(`${STORAGE_KEY}_announcements`);
-    return saved ? JSON.parse(saved) : INITIAL_ANNOUNCEMENTS;
-  });
-
-  // Seed daily attendance for past days
-  const [dailyAttendanceHistory, setDailyAttendanceHistory] = useState<{ [dateStr: string]: { [studentId: string]: AttendanceStatus } }>(() => {
-    const saved = localStorage.getItem(`${STORAGE_KEY}_attendanceHistory`);
-    if (saved) return JSON.parse(saved);
-
-    // Initial daily attendance map
-    const map: { [dateStr: string]: { [studentId: string]: AttendanceStatus } } = {};
-    const sept23: { [studentId: string]: AttendanceStatus } = {};
-    const sept24: { [studentId: string]: AttendanceStatus } = {};
-    const sept27: { [studentId: string]: AttendanceStatus } = {};
-
-    INITIAL_STUDENTS.forEach((st, idx) => {
-      sept23[st.id] = idx < 32 ? 'present' : 'absent';
-      sept24[st.id] = idx < 33 ? 'present' : 'absent';
-      sept27[st.id] = (idx === 11 || idx === 32 || idx === 33 || idx === 34) ? 'absent' : 'present';
-    });
-
-    map['2026-09-23'] = sept23;
-    map['2026-09-24'] = sept24;
-    map['2026-09-27'] = sept27;
-    return map;
-  });
+  const [students, setStudents] = useState<Student[]>(() => readDataState().students);
+  const [faculty, setFaculty] = useState<Faculty[]>(() => readDataState().faculty);
+  const [classLogs, setClassLogs] = useState<ClassLog[]>(() => readDataState().classLogs);
+  const [mockTests, setMockTests] = useState<MockTest[]>(() => readDataState().mockTests);
+  const [testScores, setTestScores] = useState<StudentTestScore[]>(() => readDataState().testScores);
+  const [syllabusModules, setSyllabusModules] = useState<SubjectModule[]>(() => readDataState().syllabusModules);
+  const [announcements, setAnnouncements] = useState<Announcement[]>(() => readDataState().announcements);
+  const [dailyAttendanceHistory, setDailyAttendanceHistory] = useState<{ [dateStr: string]: { [studentId: string]: AttendanceStatus; }; }>(() => readDataState().dailyAttendanceHistory);
 
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
@@ -156,8 +204,25 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     setToasts(prev => prev.filter(t => t.id !== id));
   };
 
+  // ---- Persist all data + session fields with one effect ----
+  usePersist({
+    role,
+    activeStudentId,
+    activeTeacherId,
+    data: {
+      students,
+      faculty,
+      classLogs,
+      mockTests,
+      testScores,
+      syllabusModules,
+      announcements,
+      dailyAttendanceHistory,
+    },
+  });
+
   // Login handler with strict validation
-  const login = (targetRole: Role, identifier: string, password?: string): { success: boolean; message?: string } => {
+  const login = (targetRole: Role, identifier: string, password?: string): { success: boolean; message?: string; } => {
     if (targetRole === 'admin') {
       // Pre-set admin credentials: admin@kadirisc.in or admin / kadiri2026
       if (password && password.trim() !== 'admin' && password.trim() !== 'kadiri2026' && password.trim() !== '1234') {
@@ -171,7 +236,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       };
       setCurrentUser(user);
       setRoleState('admin');
-      localStorage.setItem('ksc_current_user_v2', JSON.stringify(user));
+      localStorage.setItem(AUTH_KEY, JSON.stringify(user));
       showToast({
         type: 'success',
         title: 'Admin Access Granted',
@@ -203,7 +268,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setCurrentUser(user);
       setRoleState('teacher');
       setActiveTeacherId(matched.id);
-      localStorage.setItem('ksc_current_user_v2', JSON.stringify(user));
+      localStorage.setItem(AUTH_KEY, JSON.stringify(user));
       showToast({
         type: 'success',
         title: `Welcome, ${matched.name}`,
@@ -242,7 +307,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
       setCurrentUser(user);
       setRoleState('student');
       setActiveStudentId(matched.id);
-      localStorage.setItem('ksc_current_user_v2', JSON.stringify(user));
+      localStorage.setItem(AUTH_KEY, JSON.stringify(user));
       showToast({
         type: 'success',
         title: `Welcome, ${matched.name}`,
@@ -256,58 +321,13 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
 
   const logout = () => {
     setCurrentUser(null);
-    localStorage.removeItem('ksc_current_user_v2');
+    localStorage.removeItem(AUTH_KEY);
     showToast({
       type: 'info',
       title: 'Logged Out',
       message: 'You have been safely signed out.'
     });
   };
-
-  // Sync to local storage
-  useEffect(() => {
-    localStorage.setItem('ksc_user_role', role);
-  }, [role]);
-
-  useEffect(() => {
-    localStorage.setItem('ksc_active_student', activeStudentId);
-  }, [activeStudentId]);
-
-  useEffect(() => {
-    localStorage.setItem('ksc_active_teacher', activeTeacherId);
-  }, [activeTeacherId]);
-
-  useEffect(() => {
-    localStorage.setItem(`${STORAGE_KEY}_students`, JSON.stringify(students));
-  }, [students]);
-
-  useEffect(() => {
-    localStorage.setItem(`${STORAGE_KEY}_faculty`, JSON.stringify(faculty));
-  }, [faculty]);
-
-  useEffect(() => {
-    localStorage.setItem(`${STORAGE_KEY}_classLogs`, JSON.stringify(classLogs));
-  }, [classLogs]);
-
-  useEffect(() => {
-    localStorage.setItem(`${STORAGE_KEY}_mockTests`, JSON.stringify(mockTests));
-  }, [mockTests]);
-
-  useEffect(() => {
-    localStorage.setItem(`${STORAGE_KEY}_testScores`, JSON.stringify(testScores));
-  }, [testScores]);
-
-  useEffect(() => {
-    localStorage.setItem(`${STORAGE_KEY}_syllabus`, JSON.stringify(syllabusModules));
-  }, [syllabusModules]);
-
-  useEffect(() => {
-    localStorage.setItem(`${STORAGE_KEY}_announcements`, JSON.stringify(announcements));
-  }, [announcements]);
-
-  useEffect(() => {
-    localStorage.setItem(`${STORAGE_KEY}_attendanceHistory`, JSON.stringify(dailyAttendanceHistory));
-  }, [dailyAttendanceHistory]);
 
   const setRole = (newRole: Role) => {
     setRoleState(newRole);
@@ -361,12 +381,12 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
     });
   };
 
-  const markDailyAttendance = (date: string, attendanceMap: { [studentId: string]: AttendanceStatus }) => {
+  const markDailyAttendance = (date: string, attendanceMap: { [studentId: string]: AttendanceStatus; }) => {
     if (!currentUser || currentUser.role === 'student') return;
     const previous = dailyAttendanceHistory[date] || {};
     setDailyAttendanceHistory(prev => ({
       ...prev,
-        [date]: { ...prev[date], ...attendanceMap }
+      [date]: { ...prev[date], ...attendanceMap }
     }));
 
     // Update cumulative student attendance count
@@ -477,14 +497,7 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   };
 
   const resetToDefault = () => {
-    localStorage.removeItem(`${STORAGE_KEY}_students`);
-    localStorage.removeItem(`${STORAGE_KEY}_faculty`);
-    localStorage.removeItem(`${STORAGE_KEY}_classLogs`);
-    localStorage.removeItem(`${STORAGE_KEY}_mockTests`);
-    localStorage.removeItem(`${STORAGE_KEY}_testScores`);
-    localStorage.removeItem(`${STORAGE_KEY}_syllabus`);
-    localStorage.removeItem(`${STORAGE_KEY}_announcements`);
-    localStorage.removeItem(`${STORAGE_KEY}_attendanceHistory`);
+    clearDataKeys();
 
     setStudents(INITIAL_STUDENTS);
     setFaculty(INITIAL_FACULTY);

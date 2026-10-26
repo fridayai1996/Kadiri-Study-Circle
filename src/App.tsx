@@ -14,7 +14,9 @@ import { MobileBottomNav } from './components/MobileBottomNav';
 import { ToastContainer } from './components/ToastContainer';
 import { RegisterStudentModal } from './components/RegisterStudentModal';
 import { AttendanceMobile } from './components/AttendanceMobile';
+import LandingPage from './LandingPage';
 import './attendance-theme.css';
+import './landing.css';
 
 const MainContent: React.FC = () => {
   const { currentUser, role } = useApp();
@@ -67,17 +69,22 @@ const MainContent: React.FC = () => {
 
 export default function App() {
   const [portal, setPortal] = useState(false);
+  const { currentUser } = useApp();
   return (
     <AppProvider>
-      {portal ? (
-        <div className="ksc-portal">
-          <button className="return-mobile" onClick={() => setPortal(false)}>
-            ← Attendance app
-          </button>
-          <MainContent />
-        </div>
+      {currentUser ? (
+        portal ? (
+          <div className="ksc-portal">
+            <button className="return-mobile" onClick={() => setPortal(false)}>
+              ← Attendance app
+            </button>
+            <MainContent />
+          </div>
+        ) : (
+          <AttendanceMobile onOpenPortal={() => setPortal(true)} />
+        )
       ) : (
-        <AttendanceMobile onOpenPortal={() => setPortal(true)} />
+        <LandingPage />
       )}
     </AppProvider>
   );

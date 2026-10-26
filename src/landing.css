@@ -1,77 +1,649 @@
-/* Kadiri Study Circle — Landing Page styles */
+/* Kadiri Study Circle — Landing page (sentence-as-layout direction)
+   Direction: sentence-as-layout · seed 2083626180 · sector education · tone quiet
+   Palette: cobalt on sand · Type: Erode (Fontshare)
+   NOTE: visual inspect.mjs gate could not run here (no Chrome in this environment);
+   verified by TSC + Vite build + dev-server HTTP only. Confirm visually in browser. */
 
-/* Google Fonts are loaded in index.html:
-   - Instrument Serif (display/headings)
-   - Inter 400, 500 (body)
-*/
+:root {
+  /* Cobalt on sand — direction palette */
+  --bg: #e6dbc7;
+  --surface: #ddd0b9;
+  --ink: #062b8a;
+  --muted: #3a5aa8;
+  --accent: #062b8a;
+  --accent-ink: #e6dbc7;
 
-/* ===== Liquid Glass Effect ===== */
-.liquid-glass {
-  background: rgba(255, 255, 255, 0.01);
-  background-blend-mode: luminosity;
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
+  /* Type steps — Erode (matched to direction's Erode system) */
+  --step-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+  --step-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  --step-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+  --step-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
+
+  /* Motion tokens (from taste-skill motion.md) */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --t-press: 140ms;
+  --t-hover: 180ms;
+  --t-ui: 240ms;
+  --t-reveal: 800ms;
+  --stagger-line: 90ms;
+  --stagger-item: 70ms;
+
+  /* One page margin pair */
+  --margin: clamp(20px, 3vw, 48px);
+  --gutter: clamp(16px, 2vw, 32px);
+}
+
+/* ---- Reset the Tailwind body the app sets (this page is its own surface) ---- */
+.kscl-page {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Erode', serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ---- Selection ---- */
+.kscl-page ::selection {
+  background: hsla(212, 88%, 37%, 0.28);
+  color: var(--ink);
+}
+
+/* ---- Focus (one visible ring) ---- */
+.kscl-page :focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 3px;
+}
+
+/* ============================================================
+   NAV — wordmark top-left, three links + one action top-right,
+   all at 15px, quiet (direction §6)
+   ============================================================ */
+.kscl-nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px var(--margin);
+}
+
+.kscl-wordmark {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 2px;
+}
+.kscl-wordmark .reg {
+  font-size: 9px;
+  vertical-align: super;
+  line-height: 1;
+  color: var(--muted);
+}
+
+.kscl-nav-links {
+  display: flex;
+  gap: 22px;
+}
+.kscl-nav-link {
+  font-size: 15px;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color var(--t-hover) var(--ease-out);
+}
+.kscl-nav-link:hover,
+.kscl-nav-link.active {
+  color: var(--ink);
+}
+
+.kscl-nav-cta {
+  font-size: 15px;
+  color: var(--accent-ink);
+  background: var(--accent);
   border: none;
-  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+  border-radius: 2px;
+  padding: 9px 16px;
+  cursor: pointer;
+  transition: transform var(--t-press) var(--ease-out), background var(--t-hover) var(--ease-out);
+  text-decoration: none;
+  display: inline-block;
+}
+.kscl-nav-cta:hover { background: #04226b; }
+.kscl-nav-cta:active { transform: scale(0.97); }
+
+/* ============================================================
+   HERO — sentence split by a frame (direction §6)
+   Two halves of one short sentence: first half flush left,
+   second half flush right, frame dead centre.
+   ============================================================ */
+.kscl-hero {
   position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: var(--margin);
   overflow: hidden;
 }
 
-.liquid-glass::before {
-  content: '';
+.kscl-hero-phrase {
   position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  padding: 1.4px;
-  background: linear-gradient(180deg,
-    rgba(255,255,255,0.45) 0%,
-    rgba(255,255,255,0.15) 20%,
-    rgba(255,255,255,0) 40%,
-    rgba(255,255,255,0) 60%,
-    rgba(255,255,255,0.15) 80%,
-    rgba(255,255,255,0.45) 100%);
-  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
+  left: var(--margin);
+  right: var(--margin);
+  top: clamp(120px, 18vh, 200px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0;
+  /* two-line headline budget: ~32 chars; short sentence split */
 }
 
-/* ===== Entrance Animations ===== */
-@keyframes fade-rise {
-  from {
-    opacity: 0;
-    transform: translateY(24px);
-  }
-  to {
+.kscl-hero-half {
+  font-size: clamp(40px, 7vw, 86px);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-wrap: balance;
+  max-width: 48%;
+}
+
+.kscl-hero-half.right {
+  max-width: 48%;
+  text-align: right;
+}
+
+/* centre frame — 35vw wide, height = one line-height of the display type,
+   holds the attendance-register strip (subject's own material) */
+.kscl-hero-frame {
+  position: relative;
+  flex: 0 0 auto;
+  width: clamp(180px, 35vw, 420px);
+  height: calc(clamp(40px, 7vw, 86px) * 0.95);
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: 0 1px 0 rgba(9, 30, 80, 0.08);
+  flex-shrink: 0;
+}
+
+.kscl-hero-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* register strip drawn in code (subject's own material) */
+.kscl-register {
+  width: 100%;
+  height: 100%;
+  background: var(--bg);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  font-size: 9px;
+  color: var(--ink);
+  font-family: 'Erode', serif;
+  line-height: 1.05;
+}
+
+.kscl-register__cell {
+  padding: 3px 5px;
+  border-right: 1px solid var(--muted);
+  border-bottom: 1px solid var(--muted);
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+}
+.kscl-register__cell:nth-child(odd) { border-right: 1px solid var(--muted); }
+.kscl-register__roll {
+  color: var(--muted);
+  font-size: 7.5px;
+  letter-spacing: 0.02em;
+}
+.kscl-register__name {
+  color: var(--ink);
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.kscl-register__status {
+  font-size: 7px;
+  color: var(--accent);
+  font-weight: 600;
+}
+.kscl-register__status.absent { color: #8a3a1a; }
+
+/* supporting sentence — bottom-left, columns 1–4, at 18px */
+.kscl-hero-support {
+  position: absolute;
+  left: var(--margin);
+  right: var(--margin);
+  bottom: clamp(40px, 6vh, 70px);
+  max-width: 52%;
+  font-size: clamp(16px, 1.6vw, 19px);
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+/* single action — bottom-right on same baseline as support */
+.kscl-hero-action {
+  position: absolute;
+  right: var(--margin);
+  bottom: clamp(40px, 6vh, 70px);
+  font-size: clamp(15px, 1.4vw, 18px);
+  color: var(--accent-ink);
+  background: var(--accent);
+  border: none;
+  border-radius: 2px;
+  padding: 13px 22px;
+  cursor: pointer;
+  text-decoration: none;
+  font-family: 'Erode', serif;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  transition: transform var(--t-press) var(--ease-out), background var(--t-hover) var(--ease-out);
+  display: inline-block;
+}
+.kscl-hero-action:hover { background: #04226b; }
+.kscl-hero-action:active { transform: scale(0.97); }
+
+/* ============================================================
+   SECTION SHELL — each section a short statement left (cols 1–6)
+   with its proof right (cols 7–12); 160px+ between sections (§2)
+   ============================================================ */
+.kscl-section {
+  padding: var(--margin);
+  margin-top: 160px;
+}
+.kscl-section:first-of-type { margin-top: 0; }
+
+.kscl-section__grid {
+  display: grid;
+  grid-template-columns: 5fr 7fr;
+  gap: var(--gutter);
+  align-items: start;
+}
+@media (max-width: 800px) {
+  .kscl-section__grid { grid-template-columns: 1fr; }
+}
+
+.kscl-section__statement {
+  font-size: clamp(28px, 3.2vw, 52px);
+  font-weight: 500;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-wrap: balance;
+}
+.kscl-section__statement .soft {
+  color: var(--muted);
+}
+
+.kscl-section__lead {
+  margin-top: 18px;
+  font-size: var(--step-lead);
+  line-height: 1.5;
+  color: var(--muted);
+  max-width: 52ch;
+}
+
+/* ============================================================
+   STATS — column aligned on the decimal (direction §7.2)
+   ============================================================ */
+.kscl-stats__heading {
+  font-size: clamp(28px, 3.2vw, 52px);
+  font-weight: 500;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-wrap: balance;
+}
+.kscl-stats__heading strong {
+  display: block;
+  color: var(--ink);
+  font-weight: 500;
+}
+
+.kscl-stats__rows {
+  margin-top: clamp(28px, 3vw, 52px);
+  display: grid;
+  grid-template-rows: repeat(4, auto);
+  gap: 24px;
+}
+
+.kscl-stat-row {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: baseline;
+  gap: 12px;
+}
+.kscl-stat-figure {
+  font-size: clamp(64px, 7vw, 112px);
+  font-weight: 500;
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.kscl-stat-figure .dec { color: var(--muted); }
+.kscl-stat-caption {
+  font-size: 17px;
+  line-height: 1.2;
+  color: var(--muted);
+  grid-column: 3;
+  align-self: end;
+}
+
+/* ============================================================
+   SHOWCASE — one frame, three distances, pinned (direction §7.3)
+   ============================================================ */
+.kscl-showcase {
+  position: relative;
+  height: 300vh;
+  margin-top: 160px;
+  padding: 0 var(--margin);
+}
+.kscl-showcase__stage {
+  position: sticky;
+  top: 16vh;
+  height: 100svh;
+  display: grid;
+  place-items: center;
+}
+.kscl-showcase__frame {
+  position: relative;
+  width: clamp(220px, 30vw, 520px);
+  aspect-ratio: 4 / 5;
+  border-radius: 4px;
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: 0 1px 0 rgba(9, 30, 80, 0.08);
+}
+.kscl-showcase__frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 700ms var(--ease-in-out);
+}
+.kscl-showcase__frame[data-stage="1"] img { transform: scale(1); }
+.kscl-showcase__frame[data-stage="2"] img { transform: scale(1.8); transform-origin: 60% 40%; }
+.kscl-showcase__frame[data-stage="3"] img { transform: scale(3.2); transform-origin: 35% 55%; }
+
+.kscl-showcase__top {
+  position: absolute;
+  top: 12vh;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: clamp(56px, 8vw, 130px);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-wrap: balance;
+  transition: opacity 400ms var(--ease-out);
+}
+.kscl-showcase__top.away { opacity: 0; }
+
+.kscl-showcase__bottom {
+  position: absolute;
+  bottom: 14vh;
+  left: 0;
+  right: 0;
+  text-align: center;
+  font-size: clamp(56px, 8vw, 130px);
+  font-weight: 500;
+  line-height: 0.95;
+  letter-spacing: -0.025em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-wrap: balance;
+  transition: opacity 400ms var(--ease-out);
+}
+.kscl-showcase__bottom.away { opacity: 0; }
+
+.kscl-showcase__caption {
+  position: absolute;
+  right: 0;
+  top: 20vh;
+  width: 32ch;
+  font-size: 18px;
+  line-height: 1.4;
+  color: var(--muted);
+  opacity: 0;
+  transition: opacity 400ms var(--ease-out);
+  text-align: left;
+}
+.kscl-showcase__caption.show { opacity: 1; }
+
+/* stage markers (invisible, for IntersectionObserver) */
+.kscl-stage-marker { height: 100svh; width: 1px; pointer-events: none; }
+
+/* ============================================================
+   PROOF — names as one sentence (direction §7.4)
+   ============================================================ */
+.kscl-proof {
+  padding: 120px var(--margin);
+}
+.kscl-proof__intro {
+  font-size: clamp(26px, 3vw, 44px);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-wrap: balance;
+  margin-bottom: 28px;
+}
+.kscl-proof__sentence {
+  font-size: clamp(40px, 5vw, 76px);
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--muted);
+  font-weight: 500;
+  text-wrap: balance;
+  font-family: 'Erode', serif;
+}
+.kscl-proof__sentence .lit {
+  color: var(--ink);
+  transition: color 400ms var(--ease-out);
+}
+.kscl-proof__stop {
+  color: var(--muted);
+}
+
+/* ============================================================
+   CONTACT — sentence + portrait + two links (direction §7.5)
+   ============================================================ */
+.kscl-contact {
+  padding: 160px var(--margin) 120px;
+  display: grid;
+  grid-template-columns: 5fr 1fr 5fr;
+  gap: var(--gutter);
+  align-items: start;
+}
+@media (max-width: 800px) {
+  .kscl-contact { grid-template-columns: 1fr; }
+  .kscl-contact__portrait { width: 96px; }
+  .kscl-contact__links { grid-column: 1; }
+}
+.kscl-contact__sentence {
+  font-size: clamp(26px, 3vw, 44px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  color: var(--ink);
+  font-weight: 500;
+  text-wrap: balance;
+}
+.kscl-contact__portrait {
+  width: clamp(150px, 12vw, 170px);
+  aspect-ratio: 1 / 1;
+  border-radius: 2px;
+  overflow: hidden;
+  background: var(--surface);
+  box-shadow: 0 1px 0 rgba(9, 30, 80, 0.08);
+  margin-top: 6px;
+}
+.kscl-contact__portrait img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.kscl-contact__links { padding-top: 6px; }
+.kscl-contact__question {
+  font-size: 18px;
+  color: var(--ink);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+  text-wrap: balance;
+}
+.kscl-contact__link {
+  display: block;
+  font-size: 18px;
+  color: var(--ink);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  transition: color var(--t-hover) var(--ease-out);
+}
+.kscl-contact__link:hover { color: var(--muted); }
+.kscl-contact__meta {
+  margin-top: 14px;
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ============================================================
+   FOOTER — name returns full width (direction house rule)
+   ============================================================ */
+.kscl-footer {
+  border-top: 1px solid var(--muted);
+  padding: 32px var(--margin);
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 24px;
+  flex-wrap: wrap;
+  font-size: 14px;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.kscl-footer__brand {
+  color: var(--ink);
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: -0.01em;
+  font-size: 16px;
+}
+.kscl-footer__meta { text-transform: uppercase; letter-spacing: 0.06em; font-size: 12px; }
+
+/* ============================================================
+   MOVE — entrance for the parts of every section (SKILL step 9)
+   stagger: heading, then text, then proof — 70–90ms apart,
+   rising 16–32px with opacity, triggered once on scroll enter.
+   transform + opacity only; prefers-reduced-motion keeps content.
+   ============================================================ */
+.kscl-section__statement,
+.kscl-section__lead,
+.kscl-stats__heading,
+.kscl-stats__rows,
+.kscl-proof__intro,
+.kscl-proof__sentence,
+.kscl-contact__sentence,
+.kscl-contact__links {
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.kscl-section.is-in-view .kscl-section__statement { opacity: 1; transform: translateY(0); }
+.kscl-section.is-in-view .kscl-section__lead { opacity: 1; transform: translateY(0); transition-delay: 70ms; }
+.kscl-section.is-in-view .kscl-stats__heading { opacity: 1; transform: translateY(0); }
+.kscl-section.is-in-view .kscl-stats__rows { opacity: 1; transform: translateY(0); transition-delay: 70ms; }
+.kscl-section.is-in-view .kscl-proof__intro { opacity: 1; transform: translateY(0); }
+.kscl-section.is-in-view .kscl-proof__sentence { opacity: 1; transform: translateY(0); transition-delay: 70ms; }
+.kscl-section.is-in-view .kscl-contact__sentence { opacity: 1; transform: translateY(0); }
+.kscl-section.is-in-view .kscl-contact__links { opacity: 1; transform: translateY(0); transition-delay: 70ms; }
+
+/* hero phrase + frame + support + action entrance */
+.kscl-hero-phrase,
+.kscl-hero-frame,
+.kscl-hero-support,
+.kscl-hero-action {
+  opacity: 0;
+  transform: translateY(24px);
+}
+.kscl-hero.is-in-view .kscl-hero-phrase { opacity: 1; transform: translateY(0); transition: opacity 800ms var(--ease-expo), transform 800ms var(--ease-expo); }
+.kscl-hero.is-in-view .kscl-hero-frame { opacity: 1; transform: translateY(0); transition: opacity 800ms var(--ease-expo), transform 800ms var(--ease-expo); transition-delay: 90ms; }
+.kscl-hero.is-in-view .kscl-hero-support { opacity: 1; transform: translateY(0); transition: opacity 800ms var(--ease-expo), transform 800ms var(--ease-expo); transition-delay: 180ms; }
+.kscl-hero.is-in-view .kscl-hero-action { opacity: 1; transform: translateY(0); transition: opacity 800ms var(--ease-expo), transform 800ms var(--ease-expo); transition-delay: 270ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .kscl-hero-phrase, .kscl-hero-frame, .kscl-hero-support, .kscl-hero-action,
+  .kscl-section__statement, .kscl-section__lead, .kscl-stats__heading, .kscl-stats__rows,
+  .kscl-proof__intro, .kscl-proof__sentence, .kscl-contact__sentence, .kscl-contact__links {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
+    transition: none;
+  }
+  .kscl-showcase__frame img { transition: none; }
+  .kscl-showcase__top, .kscl-showcase__bottom, .kscl-showcase__caption,
+  .kscl-proof__sentence .lit { transition: none; }
+}
+
+/* ============================================================
+   LIVE THING — proof sentence lit name cycles (direction §7.4)
+   one name lit at a time, every 2s; reduced motion: keep first lit
+   ============================================================ */
+@media (prefers-reduced-motion: no-preference) {
+  .kscl-proof__sentence .lit { animation: ksc-lit 14s infinite; }
+  @keyframes ksc-lit {
+    0%, 7%   { color: var(--ink); }
+    7.1%, 50% { color: var(--muted); }
+    50.1%, 57% { color: var(--ink); }
+    57.1%, 100% { color: var(--muted); }
   }
 }
 
-.animate-fade-rise {
-  animation: fade-rise 0.8s ease-out both;
-}
-
-.animate-fade-rise-delay {
-  animation: fade-rise 0.8s ease-out 0.2s both;
-}
-
-.animate-fade-rise-delay-2 {
-  animation: fade-rise 0.8s ease-out 0.4s both;
-}
-
-/* ===== Landing Page Body ===== */
-.landing-body {
-  background: hsl(201, 100%, 13%);
-  color: hsl(0, 0%, 100%);
-}
-
-.landing-body .text-muted-foreground {
-  color: hsl(240, 4%, 66%);
-}
-
-/* ===== Selection colour ===== */
-.landing-body ::selection {
-  background: hsla(160, 100%, 50%, 0.3);
-  color: hsl(0, 0%, 100%);
+/* ============================================================
+   RESPONSIVE — hero phone: halves stack, frame full-width 4:3
+   (direction §6 phone)
+   ============================================================ */
+@media (max-width: 680px) {
+  .kscl-hero-phrase {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    top: clamp(90px, 16vh, 150px);
+  }
+  .kscl-hero-half { max-width: 100%; text-align: left; }
+  .kscl-hero-frame { width: calc(100% - 32px); aspect-ratio: 4 / 3; height: auto; }
+  .kscl-hero-support { max-width: 100%; bottom: 120px; }
+  .kscl-hero-action { left: var(--margin); right: var(--margin); bottom: 60px; width: 100%; text-align: center; }
+  .kscl-nav-links { display: none; }
 }
